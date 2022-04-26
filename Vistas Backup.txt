@@ -1,0 +1,33 @@
+CREATE VIEW UsSxUbCEstRol AS
+SELECT us.id_usuario,us.CUIT,us.nombres,us.apellido,us.FechaDeNacimiento,us.correo,us.id_sexo,sx.Sexo,us.id_UbiUsu,ub.CodigoPostal,ub.Localidad,us.id_calle,ca.Calle,us.altura,us.SaldoEnCuenta,us.id_EstadoDeLaCuenta,es.EstadoDeLaCuenta,us.id_rol,ro.rol
+FROM usuarios us
+JOIN sexo sx ON us.id_sexo = sx.id_Sexo 
+JOIN usuarios_ubicacion ub ON us.id_UbiUsu = ub.id_UbiUsu
+JOIN calle ca ON us.id_calle = ca.id_calle
+JOIN usuarios_estado es ON us.id_EstadoDeLaCuenta = es.id_EstadoDeLaCuenta
+JOIN rol ro ON us.id_rol = ro.id_rol
+
+
+CREATE VIEW TarjetaView AS
+SELECT t.id_TarjetaDeCredito,t.Num_Tarjeta,t.FechaDeExpiracion,t.id_banco,ba.NombreDeBanco,t.NroConfirm,t.id_NombreDeTarjeta,tn.NombreDeTarjeta,t.id_usuario
+FROM tarjetas t
+JOIN tarjetas_nombres tn ON t.id_NombreDeTarjeta = tn.id_NombreDeTarjeta
+JOIN banco ba ON t.id_banco = ba.id_banco
+
+
+CREATE VIEW VehiculoMTMCE AS
+SELECT vh.id_vehiculo,vh.anio,vh.patente,vh.id_marca,ma.Marca,vh.id_tipo,ti.Tipo,vh.id_modelo,mo.Modelo,vh.id_color,co.Color,vh.id_usuario,vh.id_EstadoVehic,es.EstadoVehic
+FROM vehiculos vh
+JOIN marca ma ON vh.id_marca = ma.id_marca
+JOIN tipo ti ON vh.id_tipo = ti.id_tipo
+JOIN modelo mo ON vh.id_modelo = mo.id_modelo
+JOIN color co ON vh.id_color = co.id_color
+JOIN vehic_estado es ON vh.id_EstadoVehic = es.id_EstadoVehic
+
+
+CREATE VIEW EstacEZonaPrec AS
+SELECT e.id_estacionamiento,e.FechaHoraInicio,e.latitud,e.longitud,e.id_EstadoEstac,es.EstadoEstac,e.id_usuario,e.id_vehiculo,e.id_zona,z.calle,z.AlturaDesde,z.AlturaHasta,z.id_precio,pr.PrecioFijo,pr.PrecioPorHora,pr.PrecioExcedido,z.Fecha,e.FechaHoraFin
+FROM estacionamiento e
+JOIN estac_estado es ON e.id_EstadoEstac = es.id_EstadoEstac
+JOIN zona z ON e.id_zona = z.id_zona
+JOIN precio pr ON z.id_precio = pr.id_precio
